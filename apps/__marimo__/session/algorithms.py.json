@@ -1,0 +1,136 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.4",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "16fe0d3efd7d7698899889476a6723af",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "3731a37614f5748c8c0be6715141b40b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "e7202afab2628e30ce5790d0e84492ec",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "e7ce83362801f4e0095e306bbcb5ff71",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "9927a78001c552e485971935d24f2306",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "69949faa0abf248c7a822381c83f7d82",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "56808d2cf996cae40aa2f9b8ca85a003",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "f544d3ffbc67f4b56f061e8a949d93bf",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "821e543d1a26fa63b2aa0df788056c51",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "248094dbe8acb2889b00249a5deedf5e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "e3d0d23b28226220179f02756425e8b7",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "cb69b40ae8b454472b98e44d59b30d8e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "9c2890fb5f02e696c399adc5097c35ae",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "3197b113ca013eb860feab64345444a8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"pareto-front-plots\">Pareto front plots</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "16735fa6ca892258fb83fb36483b9b9d",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "5faf877f9ba15bf0e895a5a0cd4152b2",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ROlb",
+      "code_hash": "334a9b4c252890d90f1176bf6a6ce532",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "60d25042c880b4d5d6eb526fe2a3ce78",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "6249c23c2aea3ee103054e8fbb0e6fd5",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "57dbd11971f2d80860562ee56a7b8862",
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
