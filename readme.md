@@ -1,18 +1,5 @@
-# Text documents
-
-(these links work in Obsidian)
-
-[[Ideas]]
-
-[[literature]]
-
-[[problem definition]]
-
-
 # Repo for bi-objective TSP
 
-
-The dashboard should be available at:
 
 
 ## Installation
