@@ -1,6 +1,10 @@
 # Repo for bi-objective TSP
 
+This repository consists of the Python implementation of the code used in the paper "A Decomposition Framework for Bi-Objective Travelling Salesman Problems with Profits".
 
+# Instances
+
+A larger set of instances generated for this project can be found in the repository [MOrepo-Lyngesen26b](https://github.com/MCDMSociety/MOrepo-Lyngesen26b). 
 
 ## Installation
 
