@@ -7,7 +7,7 @@ app = marimo.App()
 @app.cell
 def _():
     import marimo as mo
-    from bitsp.utils.generators import generate_tree, generate_weights
+    from bitsp.utils.generators import generate_graph, generate_weights
     from bitsp.classes.instance import Instance
     import matplotlib.pyplot as plt
     import networkx as nx
@@ -27,7 +27,7 @@ def _():
     mo.hstack([n_slider, p_slider, weight_type_dropdown])
     return (
         Instance,
-        generate_tree,
+        generate_graph,
         generate_weights,
         mo,
         n_slider,
@@ -56,7 +56,7 @@ def _(I, plot_graph_interactive):
 def _(
     Instance,
     S_slider,
-    generate_tree,
+    generate_graph,
     generate_weights,
     n_slider,
     nx,
@@ -70,7 +70,7 @@ def _(
     weight_type = weight_type_dropdown.value
 
 
-    G = generate_tree(n, S, p, root_in_subgraphs=True)
+    G = generate_graph(n, S, p, root_in_subgraphs=True)
     generate_weights(G, weight_type)
 
 
@@ -93,6 +93,9 @@ def _(
     fig, ax = plt.subplots()
     I.set_subgraphs()
     I.plot_graph(ax=ax)
+
+    #
+    plt.savefig("results/plots/example_repo.png", dpi=300)
 
     plt.show()
     return G, I
