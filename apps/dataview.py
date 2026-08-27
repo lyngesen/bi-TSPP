@@ -23,22 +23,27 @@ def _():
     import os
     from bitsp.classes.instance import Instance
     import matplotlib.pyplot as plt
-
     import re
 
-    print(tabulate.__version__)
     return Instance, json, mo, os, pd, plt
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Results
+
+    To run this notebook, download and follow the installation instructions in the repository [lyngesen/bi-TSPP](https://github.com/lyngesen/bi-TSPP).
+    """)
+    return
 
 
 @app.cell
 def _():
     # define test to read
 
-
-
-    test_name = "small-test_aug"
+    test_name = "small-test"
     test_name = "testbed_100"
-    test_name = "small-test_2_no_skip_new"
     return (test_name,)
 
 
@@ -968,17 +973,6 @@ def _(alt, dg):
 
 
 @app.cell
-def _(dg):
-    # plot dg
-    # plot decomposition_gain (y-axis), x-axis n/S, color by basename
-
-    dg['s_frac'] = dg['S'] / dg['n']
-
-    dg
-    return
-
-
-@app.cell
 def _(base_plots):
     base_plots
     return
@@ -1032,7 +1026,7 @@ def _(alt, dg):
         dg.groupby("S")["decomposition_gain"].mean().reset_index(name="dg_average")
     )
 
-    print(dg_average_S)
+    #print(dg_average_S)
 
     # average per n
     dg_average_n = (
@@ -1076,12 +1070,6 @@ def _(df, os, pd, test_name):
     instance_dir = f"instances/presets/{test_name.split('_')[0]}"
 
     os.listdir(instance_dir)[:4]
-    #[
-    #  "n-20_S-6_type-float-0_weights-nonincreasing_seed-2.json",
-    #  "n-94_S-4_type-float-0_weights-nonincreasing_seed-3.json",
-    #  "n-80_S-8_type-float-66_weights-nondecreasing_seed-3.json",
-    #  "n-14_S-8_type-float-33_weights-random_seed-1.json"
-    #]
     _methods = df["method"].unique()
     instance_files = [f.replace(".json","") for f in os.listdir(instance_dir) if f.endswith(".json")
                       and not f.startswith("config")]
@@ -1357,7 +1345,37 @@ def _(dg, mo):
 
 
 @app.cell
-def _():
+def _(alt, dg):
+    dg["dec_worse"] = dg["decomposition_gain"] < 0
+
+    _dg = dg
+
+    _boxplot = (
+        alt.Chart(_dg)
+        .mark_boxplot()
+        .encode(
+            x=alt.X("T_m:Q", title="Total running time"),
+        )
+    )
+
+    _points = (
+        alt.Chart(_dg)
+        .mark_circle(size=60, opacity=0.7)
+        .encode(
+            x=alt.X("T_m:Q", title="Total running time"),
+            y=alt.Y("dec_worse:N", title="Decomposition worse"),
+            color=alt.Color("dec_worse:N", title="Decomposition worse"),
+            tooltip=[
+                alt.Tooltip("T_m:Q"),
+                alt.Tooltip("decomposition_gain:Q"),
+                alt.Tooltip("dec_worse:N"),
+            ],
+        )
+    )
+
+    _chart = _boxplot + _points
+    _chart
+
     return
 
 
@@ -1372,48 +1390,11 @@ def _(mo):
 @app.cell
 def _(dg):
     # make sure decomposed and non-decomposed find the same number of ND points.
-    dg[(dg["Y"] != dg["Y_dec"])]
-    return
-
-
-@app.cell
-def _(alt, dg):
-    dg["dec_worse"] = dg["decomposition_gain"] < 0
-    #dg[dg["dec_worse"]]
-
-    _dg = dg
-
-    _boxplot = (
-        alt.Chart(_dg)
-        .mark_boxplot()
-        .encode(
-            y=alt.Y("T_m:Q", title="Total running time"),
-        )
-    )
-
-    _points = (
-        alt.Chart(_dg)
-        .mark_circle(size=60, opacity=0.7)
-        .encode(
-            x=alt.X("dec_worse:N", title="Decomposition worse"),
-            y=alt.Y("T_m:Q", title="Total running time"),
-            color=alt.Color("dec_worse:N", title="Decomposition worse"),
-            tooltip=[
-                alt.Tooltip("T_m:Q"),
-                alt.Tooltip("decomposition_gain:Q"),
-                alt.Tooltip("dec_worse:N"),
-            ],
-        )
-    )
-
-    _chart = _boxplot + _points
-    _chart
-    return
-
-
-@app.cell
-def _(dg):
-    dg
+    if len(dg[(dg["Y"] != dg["Y_dec"])]) > 0:
+        print("Warning: Found instances where Y != Y_dec.")
+        print(dg[(dg["Y"] != dg["Y_dec"])][["instance", "Y", "Y_dec"]])
+    else:
+        print("All instances have |Y| == |Y_dec|. i.e. decomposed and non-decomposed version found the same number of solutions")
     return
 
 
@@ -1439,7 +1420,7 @@ def _(df_filtered, np):
 
     # Display the interesting columns for debugging
     debug_columns = ['instance', 'method', 'Y', 'Y_mode']
-    print(outlier_rows[debug_columns].sort_values('instance'))
+
     return
 
 
@@ -1467,6 +1448,7 @@ def _(df_filtered, mo):
     else:
         _out_str = (f"""
         No rows found where S_from_name != extract_subgraph_count for decomposed methods.
+        Meaning that the number of subgraphs extracted matches the S value in the instance name for all decomposed methods.
         """)
     mo.md(_out_str)
     return
@@ -1474,12 +1456,9 @@ def _(df_filtered, mo):
 
 @app.cell
 def _(df_filtered):
-    # why do we see a dip in S=2, Lazy-dec, n around 25-28?
-
-
-
+    # why do we see a dip in S=2, Lazy-dec, n around 25-28? The outlier row is shown on top of the following table.
     _df_test = df_filtered[(df_filtered["S"] == 2) & (df_filtered["method"] == "MIP-Lazy-dec") & (df_filtered["n"]==26)].copy()
-    _df_test
+    _df_test.sort_values("total_time", ascending=False)
     return
 
 
